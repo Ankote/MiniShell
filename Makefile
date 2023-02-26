@@ -14,7 +14,7 @@ all : $(NAME)
 
 $(NAME) : $(OBJCS)
 	@make -C libft
-	@$(CC)  $(OBJCS) $(CFLAGS) $(INCLUDES) -o $(NAME)
+	@$(CC)  $(OBJCS) -lreadline $(CFLAGS) $(INCLUDES) -o $(NAME)
 
 %.o:%.c
 	@$(CC)  $(CFLAGS)  -c $<  -o $@
@@ -29,6 +29,10 @@ fclean : clean
 	@echo "\033[1;33m𝙀𝙫𝙚𝙧𝙮𝙩𝙝𝙞𝙣𝙜'𝙨 𝙘𝙡𝙚𝙖𝙣𝙚𝙙\033[0m"
 
 re :fclean all
+
+install :
+		make
+		cp ./minishell /usr/local/bin/minishell
 
 push :
 	git add .

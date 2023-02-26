@@ -1,12 +1,29 @@
 #include "minishell.h"
 
-void ft_skip_spaces(char *str, int *i)
+void ft_skip_white_spaces(char *str, int *i)
 {
     while (str[*i] == ' ')
     	(*i) ++;
 }
 
-void	ft_lstadd_back(t_token **lst, t_token *new)
+int ft_handled_quotes(char *line)
+{
+	int i;
+	int cpt;
+
+	i = -1;
+	cpt = 0;
+	while (line[++i])
+	{
+		if (line[i] == '\'' || line[i] == '\"')
+			cpt ++;
+	}
+	if (cpt % 2 == 0)
+		return (1);
+	return (0);
+}
+
+void	ft_lstadd_back(t_token **lst, t_token *new, int *i)
 {
 	t_token	*temp;
 
@@ -18,6 +35,7 @@ void	ft_lstadd_back(t_token **lst, t_token *new)
 		while (temp->next != NULL)
 			temp = temp->next;
 		temp->next = new;
+		*i = -1;
 	}
 }
 

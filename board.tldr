@@ -11014,11 +11014,11 @@
             "parentId": "page",
             "childIndex": 114,
             "point": [
-              382.93,
+              372.93,
               933.63
             ],
             "rotation": 0,
-            "text": "fd_in",
+            "text": "fd_in[ ]",
             "style": {
               "color": "black",
               "size": "small",
@@ -11036,11 +11036,11 @@
             "parentId": "page",
             "childIndex": 115,
             "point": [
-              480.62,
+              470.62,
               933.54
             ],
             "rotation": 0,
-            "text": "fd_out",
+            "text": "fd_out[ ]",
             "style": {
               "color": "black",
               "size": "small",

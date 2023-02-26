@@ -6,7 +6,7 @@
 /*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 08:56:34 by aankote           #+#    #+#             */
-/*   Updated: 2023/02/24 20:02:15 by aankote          ###   ########.fr       */
+/*   Updated: 2023/02/26 20:50:26 by aankote          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,32 +19,25 @@ void ft(char *line, t_token **data)
    
    check = -1;
    i = -1;
+   *data = NULL;
    while (line[++i])
    {
         if (line[i] == '>')
-        {
-            ft_lstadd_back(data, ft_lstnew(GREAT));
-            check = -1;
-        }
+            ft_lstadd_back(data, ft_lstnew(GREAT), &check);
         else if (line[i] == '<')
-        {
-            ft_lstadd_back(data, ft_lstnew(LESS));
+            ft_lstadd_back(data, ft_lstnew(LESS), &check);
+        // else if (line[i] == '|')
+        //     ft_lstadd_back(data, ft_lstnew(PIPE), &check);
+        else if(line[i] == ' ')
             check = -1;
-        }
-        else if (line[i] == '|')
-        {
-            ft_lstadd_back(data, ft_lstnew(PIPE));
-            check = -1;
-        }
-        // else if(line[i] == ' ')
-        //     ft_skip_spaces(line, &i);
         else if (check == -1)
         {
-            ft_lstadd_back(data, ft_lstnew(WRD));
+            ft_lstadd_back(data, ft_lstnew(WRD), &check);
             check = 0;
         }
    }
 }
+
 // int check_operators(char *line)
 // {
 //     int i;
@@ -69,19 +62,47 @@ void ft(char *line, t_token **data)
 // 	}
 // }
 //View, edit and save tldraw files (.tldr)
-int main()
+
+
+
+int main(int ac, char **av)
 {
-    t_token *data;
-    char *line = "cat < Makefile | grep m > outfile";
-
-    data = NULL;
-
-    ft(line, &data);
+    //int fd = open("file", O_CREAT |O_RDONLY, 000);
+//     char *p[] = {"cat file1 file2", NULL};
+//    int id = execve("/bin/ls", p, NULL);
+//    printf("%d\n", id);
+    t_token **data;
+  
+    char **p;
+    int i;
+    char *line;
+    (void)ac;
+    (void)av;
+    data = malloc(sizeof(t_token *));
     
-    while (data)
+    while (1)
     {
-        printf("%d\t", data->type);
-        data = data->next;
+        line = readline("\033[0;31mMinishell~$ \033[0m");
+        if (!ft_strncmp(line, "stop", 4) || !ft_handled_quotes(line))
+            return 0;
+        i = -1;
+        p = ft_split(line , '|');
+        while (p[++i])
+        {
+            ft(p[i], &data[i]);
+        }
+        data[i] = NULL;
+        i = 0;
+        while (data[i])
+        {
+                while (data[i])
+                {
+                    printf("%d ", data[i]->type);
+                    data[i] = data[i]->next;
+                }
+                printf("\n");
+            i++;
+        }
+        free (line);
     }
-   // printf("%d\n", check_operators(cmd));
 }

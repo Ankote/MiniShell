@@ -6,7 +6,7 @@
 /*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 08:53:18 by aankote           #+#    #+#             */
-/*   Updated: 2023/02/24 17:50:24 by aankote          ###   ########.fr       */
+/*   Updated: 2023/02/26 20:47:12 by aankote          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,10 @@
 
 
 # define WRD 0
-# define PIPE 1
-# define LESS 2
-# define GREAT 3
-
-
-
+# define FILE 1
+# define PIPE 2
+# define LESS 3
+# define GREAT 4
 
 // typedef struct mystruct
 // {
@@ -41,10 +39,11 @@ typedef struct	s_token
 }   t_token;
 
 void		ft_skip_spaces(char *str, int *i);
-void		ft_lstadd_back(t_token **lst, t_token *new);
+void		ft_lstadd_back(t_token **lst, t_token *new, int *i);
 t_token		*ft_lstnew(int type);
 char		**ft_split_op(char const *s);
 int			check_operators(char c);
+int         ft_handled_quotes(char *line);
 
 // typedef struct {
 //     char* cmd;         // The command name
