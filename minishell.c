@@ -6,13 +6,13 @@
 /*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 08:56:34 by aankote           #+#    #+#             */
-/*   Updated: 2023/02/26 20:50:26 by aankote          ###   ########.fr       */
+/*   Updated: 2023/03/01 15:47:35 by aankote          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void ft(char *line, t_token **data)
+void lexer(char *line, t_token **data)
 {
    int i;
    int check;
@@ -22,13 +22,16 @@ void ft(char *line, t_token **data)
    *data = NULL;
    while (line[++i])
    {
-        if (line[i] == '>')
+        if (!ft_strncmp(line + i, "<<", 2))
+        {
+            i++;
+            ft_lstadd_back(data, ft_lstnew(HERDOC), &check);
+        }
+        else if (line[i] == '>')
             ft_lstadd_back(data, ft_lstnew(GREAT), &check);
         else if (line[i] == '<')
             ft_lstadd_back(data, ft_lstnew(LESS), &check);
-        // else if (line[i] == '|')
-        //     ft_lstadd_back(data, ft_lstnew(PIPE), &check);
-        else if(line[i] == ' ')
+        else if(line[i] == ' '|| line[i] == '\"' || line[i] == '\'')
             check = -1;
         else if (check == -1)
         {
@@ -38,37 +41,10 @@ void ft(char *line, t_token **data)
    }
 }
 
-// int check_operators(char *line)
-// {
-//     int i;
-
-//     i = -1;
-//     while (line[++i])
-//     {
-//         if (line[i] == '<' || line[i] == '>'
-//             || line[i] == '|')
-//             return (1);   
-//     }
-//     return (0);
-// }
-
-// void get_token(char *line)
-// {
-// 	int i = 0;
-	
-// 	while(line[i])
-// 	{
-// 		if()
-// 	}
-// }
-//View, edit and save tldraw files (.tldr)
-
-
-
 int main(int ac, char **av)
 {
-    //int fd = open("file", O_CREAT |O_RDONLY, 000);
-//     char *p[] = {"cat file1 file2", NULL};
+//    int fd = open("file", O_CREAT |O_RDONLY, 000);
+//    char *p[] = {"cat file1 file2", NULL};
 //    int id = execve("/bin/ls", p, NULL);
 //    printf("%d\n", id);
     t_token **data;
@@ -82,14 +58,20 @@ int main(int ac, char **av)
     
     while (1)
     {
-        line = readline("\033[0;31mMinishell~$ \033[0m");
-        if (!ft_strncmp(line, "stop", 4) || !ft_handled_quotes(line))
+        line = readline("\033[0;31m𝑴𝒊𝒏𝒊𝒔𝒉𝒆𝒍𝒍~$ \033[0m\e[1;59m");
+        if (!ft_strncmp(line, "stop", 4))
             return 0;
+        if (!check_single_quotes(line))
+        {
+            printf("Syntax Error!\n");
+            continue;
+        }
         i = -1;
-        p = ft_split(line , '|');
+        p = ft_split_2(line , '|');
         while (p[++i])
         {
-            ft(p[i], &data[i]);
+            lexer(p[i], &data[i]);
+            printf("%s\n", p[i]);
         }
         data[i] = NULL;
         i = 0;

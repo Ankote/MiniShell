@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split_op.c                                      :+:      :+:    :+:   */
+/*   ft_split_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/17 14:37:08 by aankote           #+#    #+#             */
-/*   Updated: 2023/02/28 13:10:57 by aankote          ###   ########.fr       */
+/*   Created: 2023/02/28 11:41:48 by aankote           #+#    #+#             */
+/*   Updated: 2023/03/01 20:45:14 by aankote          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
-int check_operators(char c)
-{
-   if (c == '<' || c == '>' || c == ' ')
-        return (1);   
-    return (0);
-}
+
+#include "libft.h"
 
 static void	*ft_free(char **c)
 {
@@ -33,7 +29,7 @@ static void	*ft_free(char **c)
 	return (NULL);
 }
 
-static char	**first_alloc(char const *s)
+static char	**first_alloc(char const *s, char c)
 {
 	int		i;
 	int		cpt;
@@ -47,12 +43,12 @@ static char	**first_alloc(char const *s)
 		return (0);
 	while (s[i])
 	{
-		if (!check_operators(s[i]) && test == 0)
+		if (s[i] != c && test == 0)
 		{
 			test = 1;
 			cpt++;
 		}
-		if (check_operators(s[i]))
+		if (s[i] == c)
 			test = 0;
 		i++;
 	}
@@ -60,7 +56,7 @@ static char	**first_alloc(char const *s)
 	return (p);
 }
 
-static char	**mini(char const *s, char **p)
+static char	**mini(char const *s, char c, char **p)
 {
 	size_t	i;
 	size_t	k;
@@ -71,9 +67,9 @@ static char	**mini(char const *s, char **p)
 	start = -1;
 	while (i <= ft_strlen(s))
 	{
-		if (!check_operators(s[i]) && start == -1)
+		if (s[i] != c && start == -1)
 			start = i;
-		else if ((check_operators(s[i]) || i == ft_strlen(s)) && start >= 0)
+		else if ((s[i] == c || i == ft_strlen(s)) && start >= 0)
 		{
 			p[k++] = ft_substr(s, start, i - start);
 			if (!p[k - 1])
@@ -86,14 +82,24 @@ static char	**mini(char const *s, char **p)
 	return (p);
 }
 
-char	**ft_split_op(char const *s)
+char	**ft_split_2(char const *s, char c)
 {
 	char	**p;
 	char	**x;
+	char *tmp;
+    int i;
 
-	p = first_alloc(s);
+    i = -1;
+	p = first_alloc(s, c);
 	if (!p)
 		return (0);
-	x = mini(s, p);
+	x = mini(s, c, p);
+    while(x[++i])
+	{
+		tmp = x[i];
+		x[i] = fill_str(tmp);
+		free(tmp);
+	}
+          
 	return (x);
 }

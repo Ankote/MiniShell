@@ -1,26 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_00.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/02 08:51:50 by aankote           #+#    #+#             */
+/*   Updated: 2023/03/02 08:51:51 by aankote          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
+
 #include "minishell.h"
 
 void ft_skip_white_spaces(char *str, int *i)
 {
     while (str[*i] == ' ')
     	(*i) ++;
-}
-
-int ft_handled_quotes(char *line)
-{
-	int i;
-	int cpt;
-
-	i = -1;
-	cpt = 0;
-	while (line[++i])
-	{
-		if (line[i] == '\'' || line[i] == '\"')
-			cpt ++;
-	}
-	if (cpt % 2 == 0)
-		return (1);
-	return (0);
 }
 
 void	ft_lstadd_back(t_token **lst, t_token *new, int *i)

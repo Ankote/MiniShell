@@ -4,7 +4,7 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror
 
-FILES = minishell.c utils_00.c includes/ft_split_op.c
+FILES = minishell.c  handle_quotes.c utils_00.c ft_split_2.c includes/ft_split_op.c
 
 OBJCS = $(FILES:.c=.o)
 
