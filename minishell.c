@@ -6,37 +6,56 @@
 /*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 08:56:34 by aankote           #+#    #+#             */
-/*   Updated: 2023/03/01 15:47:35 by aankote          ###   ########.fr       */
+/*   Updated: 2023/03/02 10:08:10 by aankote          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// void ft(char *str)
+// {
+//     int i;
+
+//     i = -1;
+//     while(str[++i])
+//     {
+        
+//     }
+// }
 void lexer(char *line, t_token **data)
 {
    int i;
    int check;
    
-   check = -1;
+   check = 1;
    i = -1;
    *data = NULL;
    while (line[++i])
    {
-        if (!ft_strncmp(line + i, "<<", 2))
-        {
-            i++;
-            ft_lstadd_back(data, ft_lstnew(HERDOC), &check);
-        }
-        else if (line[i] == '>')
-            ft_lstadd_back(data, ft_lstnew(GREAT), &check);
-        else if (line[i] == '<')
-            ft_lstadd_back(data, ft_lstnew(LESS), &check);
-        else if(line[i] == ' '|| line[i] == '\"' || line[i] == '\'')
-            check = -1;
-        else if (check == -1)
-        {
-            ft_lstadd_back(data, ft_lstnew(WRD), &check);
+        if (line[i] == '\'' && check == 1)
             check = 0;
+        else if (line[i] == '\'' && check == 0)
+            check = 1;
+        else if (line[i] == '\"' && check == 1)
+            check = 0;
+        else if (line[i] == '\"' && check == 0)
+            check = 1;
+        else
+        {
+            if (!ft_strncmp(line + i, "<<", 2) && check == 1)
+            {
+                i++;
+                ft_lstadd_back(data, ft_lstnew(HERDOC), &check);
+            }
+            else if (line[i] == '>' && check == 1)
+                ft_lstadd_back(data, ft_lstnew(GREAT), &check);
+            else if (line[i] == '<' && check == 1)
+                ft_lstadd_back(data, ft_lstnew(LESS), &check);
+            else if (check == 1)
+            {
+                ft_lstadd_back(data, ft_lstnew(WRD), &check);
+                check = 0;
+            }
         }
    }
 }
@@ -46,7 +65,7 @@ int main(int ac, char **av)
 //    int fd = open("file", O_CREAT |O_RDONLY, 000);
 //    char *p[] = {"cat file1 file2", NULL};
 //    int id = execve("/bin/ls", p, NULL);
-//    printf("%d\n", id);
+//    printf("%d\n", id); 
     t_token **data;
   
     char **p;

@@ -6,7 +6,7 @@
 /*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 08:55:13 by aankote           #+#    #+#             */
-/*   Updated: 2023/03/02 09:12:10 by aankote          ###   ########.fr       */
+/*   Updated: 2023/03/02 09:18:51 by aankote          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,13 @@ int count_str(char *str)
 			check = 0;	
 		else if (str[i] == '\"' && check == 0)
 			check = 1;
+		else if (str[i] == '\'' && check == 1)
+			check = 0;
+		else if (str[i] == '\'' && check == 0)
+			check = 1;
 		else
-			cpt++;
+			cpt ++;
+			
 	}
 	return (cpt);
 }
@@ -96,6 +101,7 @@ char *fill_str(char *str)
 	check = 1;
 	j = 0;
 	p = malloc(count_str(str) + 1);
+	printf("%d\n",count_str(str) );
 	if (!p)
 		return (0);
 	while(str[++i])

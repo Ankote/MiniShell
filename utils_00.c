@@ -6,7 +6,7 @@
 /*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 08:51:50 by aankote           #+#    #+#             */
-/*   Updated: 2023/03/02 08:51:51 by aankote          ###   ########.fr       */
+/*   Updated: 2023/03/02 10:07:08 by aankote          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_lstadd_back(t_token **lst, t_token *new, int *i)
 		while (temp->next != NULL)
 			temp = temp->next;
 		temp->next = new;
-		*i = -1;
+		*i = 1;
 	}
 }
 
