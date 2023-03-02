@@ -6,7 +6,7 @@
 /*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 08:51:50 by aankote           #+#    #+#             */
-/*   Updated: 2023/03/02 10:07:08 by aankote          ###   ########.fr       */
+/*   Updated: 2023/03/02 16:38:25 by aankote          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	ft_lstadd_back(t_token **lst, t_token *new, int *i)
 	t_token	*temp;
 
 	temp = *lst;
+	(void)i;
 	if (*lst == NULL)
 		*lst = new;
 	else
@@ -32,8 +33,17 @@ void	ft_lstadd_back(t_token **lst, t_token *new, int *i)
 		while (temp->next != NULL)
 			temp = temp->next;
 		temp->next = new;
-		*i = 1;
+		//*i = 1;
 	}
+}
+void ft_free(char **p)
+{
+	int i;
+
+	i = 0;
+	while(p[i])
+		free(p[i++]);
+	free(p);
 }
 
 t_token	*ft_lstnew(int type)
@@ -47,3 +57,5 @@ t_token	*ft_lstnew(int type)
 	new->next = NULL;
 	return (new);
 }
+
+// cat "<" Makefile  | grep m > out

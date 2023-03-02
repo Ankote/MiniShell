@@ -6,14 +6,11 @@
 /*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 11:41:48 by aankote           #+#    #+#             */
-/*   Updated: 2023/03/01 20:45:14 by aankote          ###   ########.fr       */
+/*   Updated: 2023/03/02 18:28:44 by aankote          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-
-#include "libft.h"
 
 static void	*ft_free(char **c)
 {

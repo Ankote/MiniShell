@@ -6,7 +6,7 @@
 /*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 08:53:18 by aankote           #+#    #+#             */
-/*   Updated: 2023/03/01 20:45:26 by aankote          ###   ########.fr       */
+/*   Updated: 2023/03/02 18:29:08 by aankote          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ void		ft_lstadd_back(t_token **lst, t_token *new, int *i);
 t_token		*ft_lstnew(int type);
 char		**ft_split_op(char const *s);
 int			check_operators(char c);
-char *ft_h(char *str, int c);
+char 		*ft_h(char *str, int c);
 int 		ft_handel_quotes(char *line);
 char		**ft_split_2(char const *s, char c);
-int check_single_quotes(char *str);
-char *fill_str(char *str);
+int 		check_single_quotes(char *str);
+char 		*fill_str(char *str);
 # endif
