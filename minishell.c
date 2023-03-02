@@ -6,7 +6,7 @@
 /*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 08:56:34 by aankote           #+#    #+#             */
-/*   Updated: 2023/03/02 18:47:40 by aankote          ###   ########.fr       */
+/*   Updated: 2023/03/02 19:24:33 by aankote          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,9 @@ void lexer(char *line, t_token **data)
             else if (line[i] == '>')
                 ft_lstadd_back(data, ft_lstnew(GREAT), &check);
             else if (line[i] == '<')
-                ft_lstadd_back(data, ft_lstnew(LESS), &check)
-            else ()
+                ft_lstadd_back(data, ft_lstnew(LESS), &check);
+            else
+                ft_lstadd_back(data, ft_lstnew(WRD), &check);
 		}
    }
 }
