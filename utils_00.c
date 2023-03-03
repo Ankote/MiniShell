@@ -6,7 +6,7 @@
 /*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 08:51:50 by aankote           #+#    #+#             */
-/*   Updated: 2023/03/02 16:38:25 by aankote          ###   ########.fr       */
+/*   Updated: 2023/03/03 11:17:35 by aankote          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,11 @@ void ft_skip_white_spaces(char *str, int *i)
     	(*i) ++;
 }
 
-void	ft_lstadd_back(t_token **lst, t_token *new, int *i)
+void	ft_lstadd_back(t_token **lst, t_token *new)
 {
 	t_token	*temp;
 
 	temp = *lst;
-	(void)i;
 	if (*lst == NULL)
 		*lst = new;
 	else
@@ -33,7 +32,6 @@ void	ft_lstadd_back(t_token **lst, t_token *new, int *i)
 		while (temp->next != NULL)
 			temp = temp->next;
 		temp->next = new;
-		//*i = 1;
 	}
 }
 void ft_free(char **p)

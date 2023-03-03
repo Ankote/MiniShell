@@ -6,7 +6,7 @@
 /*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 08:56:34 by aankote           #+#    #+#             */
-/*   Updated: 2023/03/02 19:24:33 by aankote          ###   ########.fr       */
+/*   Updated: 2023/03/03 11:35:54 by aankote          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,19 @@
 //         }
 //     }
 // }
+void ft_chcek_operators(char *str, t_token **data, int *i)
+{
+    while(str[(*i)++])
+    {
+        if((str[*i] != ' ' && str[*i] != '<' 
+            && str[*i] != '>'))
+        {
+            ft_lstadd_back(data, ft_lstnew(WRD));
+        }
+        else
+            return;
+    }
+}
 
 void lexer(char *line, t_token **data)
 {
@@ -64,9 +77,12 @@ void lexer(char *line, t_token **data)
    while (line[++i])
    {
 		if (line[i] == '\"' && check == 1)
+        {
+             ft_lstadd_back(data, ft_lstnew(WRD));
 			check = 0;
+        }
 		else if (line[i] == '\"' && check == 0)
-			check = 1;
+            check = 1;
 		else if (line[i] == '\'' && check == 1)
 			check = 0;
 		else if (line[i] == '\'' && check == 0)
@@ -76,14 +92,20 @@ void lexer(char *line, t_token **data)
 			if (!ft_strncmp(line + i, "<<", 2) && check == 1)
             {
                 i++;
-            	ft_lstadd_back(data, ft_lstnew(HERDOC), &check);
+            	ft_lstadd_back(data, ft_lstnew(HERDOC));
         	}
             else if (line[i] == '>')
-                ft_lstadd_back(data, ft_lstnew(GREAT), &check);
+                ft_lstadd_back(data, ft_lstnew(GREAT));
             else if (line[i] == '<')
-                ft_lstadd_back(data, ft_lstnew(LESS), &check);
+                ft_lstadd_back(data, ft_lstnew(LESS));
+            else if (line[i] == ' ')
+                continue;
             else
-                ft_lstadd_back(data, ft_lstnew(WRD), &check);
+            {
+                ft_lstadd_back(data, ft_lstnew(WRD));
+                while (line[i] && !check_operators(line[i]))
+                    i++;
+            }
 		}
    }
 }
@@ -99,9 +121,29 @@ void get_token(char *line, t_token **data)
     {
         data[i] = malloc(sizeof(t_token));
         lexer(line, &data[i]);
-    }
-        
+    }  
 }
+
+// void ft_g(char *line, t_token **data)
+// {
+//     char **p;
+//     int i;
+
+//     i = 0;
+//     p = ft_split(line, ' ');
+//     while(p[i])
+//     {
+//         if(ft_strncmp(p[i], ">", ft_strlen(p[i])))
+//             ft_lstadd_back(data, ft_lstnew(GREAT));
+//         if(ft_strncmp(p[i], "<<", ft_strlen(p[i])))
+//             ft_lstadd_back(data, ft_lstnew(HERDOC));
+//         if(ft_strncmp(p[i], "<", ft_strlen(p[i])))
+//             ft_lstadd_back(data, ft_lstnew(LESS));
+//         else 
+//              ft_lstadd_back(data, ft_lstnew(WRD));
+//     }
+// }
+
 
 int main(int ac, char **av)
 {
@@ -150,3 +192,7 @@ int main(int ac, char **av)
         free (line);
     }
 }
+
+
+
+//  "adfrsfr" > llllll

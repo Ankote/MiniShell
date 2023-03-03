@@ -6,7 +6,7 @@
 /*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 08:53:18 by aankote           #+#    #+#             */
-/*   Updated: 2023/03/02 18:29:08 by aankote          ###   ########.fr       */
+/*   Updated: 2023/03/03 10:59:44 by aankote          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,10 @@ typedef struct	s_token
 	struct s_token	*next;
 }   t_token;
 void		ft_skip_spaces(char *str, int *i);
-void		ft_lstadd_back(t_token **lst, t_token *new, int *i);
+void		ft_lstadd_back(t_token **lst, t_token *new);
 t_token		*ft_lstnew(int type);
 char		**ft_split_op(char const *s);
 int			check_operators(char c);
-char 		*ft_h(char *str, int c);
 int 		ft_handel_quotes(char *line);
 char		**ft_split_2(char const *s, char c);
 int 		check_single_quotes(char *str);
