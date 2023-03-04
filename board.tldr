@@ -698,6 +698,34 @@
               "font": "script",
               "textAlign": "middle"
             }
+          },
+          "568d89d2-a0e5-4de9-1dd9-4d8584e468a4": {
+            "id": "568d89d2-a0e5-4de9-1dd9-4d8584e468a4",
+            "type": "rectangle",
+            "name": "Rectangle",
+            "parentId": "page",
+            "childIndex": 23,
+            "point": [
+              25.22,
+              20385.75
+            ],
+            "size": [
+              300.45,
+              70.89
+            ],
+            "rotation": 0,
+            "style": {
+              "color": "black",
+              "size": "small",
+              "isFilled": false,
+              "dash": "draw",
+              "scale": 1
+            },
+            "label": "",
+            "labelPoint": [
+              0.5,
+              0.5
+            ]
           }
         },
         "bindings": {}

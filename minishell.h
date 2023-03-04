@@ -6,7 +6,7 @@
 /*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 08:53:18 by aankote           #+#    #+#             */
-/*   Updated: 2023/03/03 10:59:44 by aankote          ###   ########.fr       */
+/*   Updated: 2023/03/04 21:35:43 by aankote          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,14 @@
 # include <stdlib.h>
 # include <fcntl.h>
 
-# define WRD 0
-# define FILE 1
-# define PIPE 2
-# define LESS 3
-# define GREAT 4
-# define HERDOC 5
+# define EMPTY 0
+# define CMD 1
+# define ARG 2
+# define TRUNC 3
+# define APPEND 4
+# define INPUT 5
+# define PIPE 6
+# define END 7
 
 // typedef struct mystruct
 // {
@@ -37,15 +39,20 @@
 typedef struct	s_token
 {
 	int				type;
+	char			*val;
+	struct s_token	*prev;
 	struct s_token	*next;
 }   t_token;
+
 void		ft_skip_spaces(char *str, int *i);
 void		ft_lstadd_back(t_token **lst, t_token *new);
-t_token		*ft_lstnew(int type);
+t_token		*ft_lstnew(int type, char *val);
 char		**ft_split_op(char const *s);
 int			check_operators(char c);
 int 		ft_handel_quotes(char *line);
 char		**ft_split_2(char const *s, char c);
 int 		check_single_quotes(char *str);
 char 		*fill_str(char *str);
+
+void ft(char *line, t_token **token);
 # endif
