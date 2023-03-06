@@ -135,8 +135,8 @@ int main(int ac, char **av)
         get_token(line, &data);
         while (data)
         {
-            type_arg(data);
-            printf("%s %d\n",data->val, data->type);
+         //   type_arg(data);
+            printf("%p %p %p %s\n",data, data->next, data->prev, data->val);
             data = data->next;
         } 
         free (line);

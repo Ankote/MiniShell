@@ -23,7 +23,6 @@ void ft_skip_white_spaces(char *str, int *i)
 void	ft_lstadd_back(t_token **lst, t_token *new)
 {
 	t_token	*temp;
-	t_token	*prev;
 
 	temp = *lst;
 	if (*lst == NULL)
@@ -33,14 +32,17 @@ void	ft_lstadd_back(t_token **lst, t_token *new)
 	}
 	else
 	{
-		prev = temp;
-		while (temp->next != NULL)
+		if(!temp->next)
 		{
-			prev = temp;
-			temp = temp->next;
+			temp->prev = NULL;
+			temp->next = new;
+			return;
 		}
+		while (temp->next)
+			temp = temp->next;
+		temp->prev = temp;
+		
 		temp->next = new;
-		temp->prev = prev;
 	}
 }
 
