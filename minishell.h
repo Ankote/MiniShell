@@ -27,7 +27,6 @@
 # define APPEND 4
 # define INPUT 5
 # define PIPE 6
-# define END 7
 
 // typedef struct mystruct
 // {
@@ -53,6 +52,7 @@ int 		ft_handel_quotes(char *line);
 char		**ft_split_2(char const *s, char c);
 int 		check_single_quotes(char *str);
 char 		*fill_str(char *str);
+void	   type_arg(t_token *token);
 
 void get_token(char *line, t_token **token);
 # endif

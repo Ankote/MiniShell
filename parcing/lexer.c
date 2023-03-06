@@ -75,15 +75,15 @@ int	ft_strcmp(const char *s1, const char *s2)
 }
 
 
-void	type_arg(t_token *token, int separator)
+void	type_arg(t_token *token)
 {
-	if (ft_strcmp(token->val, ">") == 0 && separator == 0)
+	if (ft_strcmp(token->val, ">") == 0)
 		token->type = TRUNC;
-	else if (ft_strcmp(token->val, ">>") == 0 && separator == 0)
+	else if (ft_strcmp(token->val, ">>") == 0)
 		token->type = APPEND;
-	else if (ft_strcmp(token->val, "<") == 0 && separator == 0)
+	else if (ft_strcmp(token->val, "<") == 0)
 		token->type = INPUT;
-	else if (ft_strcmp(token->val, "|") == 0 && separator == 0)
+	else if (ft_strcmp(token->val, "|") == 0)
 		token->type = PIPE;
 	else if (token->prev == NULL || token->prev->type >= TRUNC)
 		token->type = CMD;

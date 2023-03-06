@@ -133,10 +133,10 @@ int main(int ac, char **av)
             continue;
         }
         get_token(line, &data);
-       int i = 1;
         while (data)
         {
-            printf("%s %d\n",data->val, i++);
+            type_arg(data);
+            printf("%s %d\n",data->val, data->type);
             data = data->next;
         } 
         free (line);
