@@ -54,5 +54,5 @@ char		**ft_split_2(char const *s, char c);
 int 		check_single_quotes(char *str);
 char 		*fill_str(char *str);
 
-void ft(char *line, t_token **token);
+void get_token(char *line, t_token **token);
 # endif

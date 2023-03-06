@@ -28,8 +28,8 @@ void	ft_lstadd_back(t_token **lst, t_token *new)
 	temp = *lst;
 	if (*lst == NULL)
 	{
-		*lst = new;
 		new->prev = NULL;
+		*lst = new;
 	}
 	else
 	{
@@ -39,6 +39,7 @@ void	ft_lstadd_back(t_token **lst, t_token *new)
 			prev = temp;
 			temp = temp->next;
 		}
+		temp->next = new;
 		temp->prev = prev;
 	}
 }

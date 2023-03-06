@@ -20,8 +20,7 @@ int		quotes(char *line, int index)
 	i = 0;
 	open = 0;
 	while (line[i] && i != index)
-	{
-		
+	{	
 		if (open == 0 && line[i] == '\"')
 			open = 1;
 		else if (open == 1 && line[i] == '\"')
@@ -34,7 +33,7 @@ int		quotes(char *line, int index)
 	}
 	return (open);
 }
-
+// "zfvsfv'"""
 char *ft_charjoin(char *s, char c)
 {
 	char *p;
@@ -75,6 +74,7 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
+
 void	type_arg(t_token *token, int separator)
 {
 	if (ft_strcmp(token->val, ">") == 0 && separator == 0)
@@ -91,8 +91,10 @@ void	type_arg(t_token *token, int separator)
 		token->type = ARG;
 }
 
-int		ignore_sep(char c)
+int		ignore_sep(char c, char *line, int index)
 {
+	if(quotes(line, index))
+		return (0);
 	if (c && c == '|')
 		return (1);
 	else if (c && c == '>')
@@ -104,47 +106,49 @@ int		ignore_sep(char c)
 	return (0);
 }
 
-void ft(char *line, t_token **token)
+
+void get_token(char *line, t_token **token)
 {
     int i;
 	char *p;
     
 	*token = NULL;
-    i = 0;
-    while(line[i])
+    i = -1;
+    while(line[++i])
     {
 		p = ft_calloc(1, 1);
-		if(line[i] && !ignore_sep(line[i]))
+		if(line[i] && !ignore_sep(line[i], line, i))
 		{
-			while (line[i] && !ignore_sep(line[i]))
+			while (line[i] && !ignore_sep(line[i], line, i))
 			{
-				p = ft_join_free(p, line[i]);
-				if((line[i + 1] && ignore_sep(line[i + 1])) || !line[i + 1] )
+				while((line[i] == '\"' && (!quotes(line, i) || quotes(line, i) == 1))
+					|| ((line[i] == '\'' && (!quotes(line, i) || quotes(line, i) == 2))))
+					i++;
+				p = ft_charjoin(p, line[i]);
+				if((line[i + 1] && ignore_sep(line[i + 1], line, i)) || !line[i + 1] )
 				{
 					ft_lstadd_back(token, ft_lstnew(CMD, p));
-					printf("%s ", p);
 					break;
 				}
 				i ++;
 			}
 		}
-		// else
-		// {
-		// 	if(line[i] && ignore_sep(line[i]))
-		// 	{
-		// 		while (line[i] && ignore_sep(line[i]))
-		// 		{
-		// 			p = ft_join_free(p, line[i]);
-		// 			if((line[i + 1] && !ignore_sep(line[i + 1])) || !line[i + 1] )
-		// 			{
-		// 				ft_lstadd_back(token, ft_lstnew(CMD, p));
-		// 				break;
-		// 			}
-		// 			i ++;
-		// 		}
-		// 	}
-		// }
-		i++;
+		else
+		{
+			if(line[i] && ignore_sep(line[i], line, i))
+			{
+				while (line[i] && ignore_sep(line[i], line, i) && line[i] != ' ')
+				{
+					p = ft_join_free(p, line[i]);
+					if((line[i + 1] && !ignore_sep(line[i + 1], line, i)) || !line[i + 1] || line[i+1] == ' ')
+					{
+						ft_lstadd_back(token, ft_lstnew(CMD, p));
+						break;
+					}
+					i ++;
+				}
+			}
+		}
     }
 }
 

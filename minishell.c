@@ -116,19 +116,15 @@ int main(int ac, char **av)
 //    printf("%d\n", id); 
     t_token *data;
   
-    char **p;
-    int i;
     char *line;
     (void)ac;
     
     (void)av;
-    i = 1;
-    
     
     while (1)
     {
-        line = readline("\033[0;31m𝑴𝒊𝒏𝒊𝒔𝒉𝒆𝒍𝒍~$ \033[0m\e[1;59m");
-       
+        //line = readline("\033[0;31m𝑴𝒊𝒏𝒊𝒔𝒉𝒆𝒍𝒍~$ \033[0m\e[1;59m");
+       line = readline("minishell~$");
         if (!ft_strncmp(line, "stop", 4))
             return 0;
         if (!check_single_quotes(line))
@@ -136,12 +132,11 @@ int main(int ac, char **av)
             printf("Syntax Error!\n");
             continue;
         }
-        ft(line, &data);
-        p = ft_split("hhhh | hhhh" , '|'); 
-        i = 0;
+        get_token(line, &data);
+       int i = 1;
         while (data)
         {
-            printf("%s. \n",data->val);
+            printf("%s %d\n",data->val, i++);
             data = data->next;
         } 
         free (line);
