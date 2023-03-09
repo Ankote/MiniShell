@@ -6,7 +6,7 @@
 /*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 08:51:50 by aankote           #+#    #+#             */
-/*   Updated: 2023/03/04 21:52:26 by aankote          ###   ########.fr       */
+/*   Updated: 2023/03/09 13:02:00 by aankote          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,13 @@ void	ft_lstadd_back(t_token **lst, t_token *new)
 	{
 		if(!temp->next)
 		{
-			temp->prev = NULL;
 			temp->next = new;
+			new->prev = temp;
 			return;
 		}
 		while (temp->next)
 			temp = temp->next;
-		temp->prev = temp;
-		
+		new->prev = temp;
 		temp->next = new;
 	}
 }
@@ -67,6 +66,20 @@ t_token	*ft_lstnew(int type, char *val)
     new->val = val;
 	new->next = NULL;
 	return (new);
-}
+}              
 
+void	add_command(t_list **lst, t_list *new)
+{
+	t_list	*temp;
+
+	temp = *lst;
+	if (*lst == NULL)
+		*lst = new;
+	else
+	{
+		while (temp->next != NULL)
+			temp = temp->next;
+		temp->next = new;
+	}
+}
 // cat "<" Makefile  | grep m > out

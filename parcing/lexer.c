@@ -6,7 +6,7 @@
 /*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 10:50:47 by aankote           #+#    #+#             */
-/*   Updated: 2023/03/04 21:53:17 by aankote          ###   ########.fr       */
+/*   Updated: 2023/03/09 10:17:48 by aankote          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		quotes(char *line, int index)
 	}
 	return (open);
 }
-// "zfvsfv'"""
+
 char *ft_charjoin(char *s, char c)
 {
 	char *p;
@@ -49,15 +49,6 @@ char *ft_charjoin(char *s, char c)
 	p[i++] = c;
 	p[i] = 0;
 	return (p);
-}
-
-char *ft_join_free(char *s1, char c)
-{
-	char *tmp;
-
-	tmp = ft_charjoin(s1, c);
-	free(s1);
-	return(tmp);
 }
 
 int	ft_strcmp(const char *s1, const char *s2)
@@ -81,10 +72,18 @@ void	type_arg(t_token *token)
 		token->type = TRUNC;
 	else if (ft_strcmp(token->val, ">>") == 0)
 		token->type = APPEND;
+	else if (ft_strcmp(token->val, "<<") == 0)
+		token->type = HERDOC;
 	else if (ft_strcmp(token->val, "<") == 0)
 		token->type = INPUT;
 	else if (ft_strcmp(token->val, "|") == 0)
 		token->type = PIPE;
+	else if (token->prev && token->prev->type == INPUT)
+		token->type = INFILE;
+	else if (token->prev && token->prev->type == TRUNC)
+		token->type = OUTFILE;
+	else if (token->prev && token->prev->type == HERDOC)
+		token->type = LIMITER;
 	else if (token->prev == NULL || token->prev->type >= TRUNC)
 		token->type = CMD;
 	else
@@ -105,7 +104,6 @@ int		ignore_sep(char c, char *line, int index)
 		return (1);
 	return (0);
 }
-
 
 void get_token(char *line, t_token **token)
 {
@@ -139,7 +137,7 @@ void get_token(char *line, t_token **token)
 			{
 				while (line[i] && ignore_sep(line[i], line, i) && line[i] != ' ')
 				{
-					p = ft_join_free(p, line[i]);
+					p = ft_charjoin(p, line[i]);
 					if((line[i + 1] && !ignore_sep(line[i + 1], line, i)) || !line[i + 1] || line[i+1] == ' ')
 					{
 						ft_lstadd_back(token, ft_lstnew(CMD, p));
@@ -151,5 +149,3 @@ void get_token(char *line, t_token **token)
 		}
     }
 }
-
-

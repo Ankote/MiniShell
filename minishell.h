@@ -6,7 +6,7 @@
 /*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 08:53:18 by aankote           #+#    #+#             */
-/*   Updated: 2023/03/04 21:35:43 by aankote          ###   ########.fr       */
+/*   Updated: 2023/03/09 17:32:00 by aankote          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,15 @@
 
 # define EMPTY 0
 # define CMD 1
-# define ARG 2
-# define TRUNC 3
-# define APPEND 4
-# define INPUT 5
-# define PIPE 6
+# define INFILE 3
+# define OUTFILE 4
+# define ARG 5
+# define TRUNC 6
+# define APPEND 7
+# define INPUT 8
+# define PIPE 9
+# define HERDOC 10
+# define LIMITER 11
 
 // typedef struct mystruct
 // {
@@ -43,6 +47,15 @@ typedef struct	s_token
 	struct s_token	*next;
 }   t_token;
 
+typedef struct s_list
+{
+	char			*cmd;
+	char			**args;
+	int 			infile;
+	int 			outfile;
+	struct s_list	*next;
+}	t_list;
+
 void		ft_skip_spaces(char *str, int *i);
 void		ft_lstadd_back(t_token **lst, t_token *new);
 t_token		*ft_lstnew(int type, char *val);
@@ -52,7 +65,11 @@ int 		ft_handel_quotes(char *line);
 char		**ft_split_2(char const *s, char c);
 int 		check_single_quotes(char *str);
 char 		*fill_str(char *str);
-void	   type_arg(t_token *token);
-
-void get_token(char *line, t_token **token);
+void	    type_arg(t_token *token);
+void 		get_token(char *line, t_token **token);
+char		*get_value(char **env, char *var);
+void 		get_cmd(t_list **list, t_token **token);
+void	add_command(t_list **lst, t_list *new);
+void list_init(t_list *list);
 # endif
+// echo 'dhfhygnfhgynf'

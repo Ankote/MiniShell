@@ -5,8 +5,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 FILES = minishell.c  handle_quotes.c utils_00.c ft_split_2.c includes/ft_split_op.c\
-		parcing/lexer.c
-
+		parcing/lexer.c parcing/expanding.c parcing/parcer_utils.c
 OBJCS = $(FILES:.c=.o)
 
 INCLUDES = libft/libft.a
