@@ -2,10 +2,11 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 
 FILES = minishell.c  handle_quotes.c utils_00.c ft_split_2.c includes/ft_split_op.c\
-		parcing/lexer.c parcing/expanding.c parcing/parcer_utils.c
+		parcing/lexer.c parcing/expanding.c parcing/parcer_utils.c parcing/parcer_utils2.c\
+
 OBJCS = $(FILES:.c=.o)
 
 INCLUDES = libft/libft.a
@@ -14,7 +15,7 @@ all : $(NAME)
 
 $(NAME) : $(OBJCS)
 	@make -C libft
-	@$(CC)  $(OBJCS) -lreadline -fsanitize=address $(CFLAGS) $(INCLUDES) -o $(NAME)
+	@$(CC)  $(OBJCS) -lreadline  $(CFLAGS) $(INCLUDES) -o $(NAME)
 
 %.o:%.c
 	@$(CC)  $(CFLAGS)  -c $<  -o $@

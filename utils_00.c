@@ -6,7 +6,7 @@
 /*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 08:51:50 by aankote           #+#    #+#             */
-/*   Updated: 2023/03/09 13:02:00 by aankote          ###   ########.fr       */
+/*   Updated: 2023/03/10 20:35:33 by aankote          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,15 +71,16 @@ t_token	*ft_lstnew(int type, char *val)
 void	add_command(t_list **lst, t_list *new)
 {
 	t_list	*temp;
-
+    
 	temp = *lst;
-	if (*lst == NULL)
+	if (temp == NULL)
 		*lst = new;
 	else
 	{
-		while (temp->next != NULL)
+		while (temp->next)
 			temp = temp->next;
 		temp->next = new;
 	}
+	new->next = NULL;
 }
 // cat "<" Makefile  | grep m > out

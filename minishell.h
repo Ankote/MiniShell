@@ -6,7 +6,7 @@
 /*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 08:53:18 by aankote           #+#    #+#             */
-/*   Updated: 2023/03/09 17:32:00 by aankote          ###   ########.fr       */
+/*   Updated: 2023/03/10 20:35:59 by aankote          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_list
 	char			**args;
 	int 			infile;
 	int 			outfile;
+	int 			append_in;
 	struct s_list	*next;
 }	t_list;
 
@@ -69,7 +70,15 @@ void	    type_arg(t_token *token);
 void 		get_token(char *line, t_token **token);
 char		*get_value(char **env, char *var);
 void 		get_cmd(t_list **list, t_token **token);
-void	add_command(t_list **lst, t_list *new);
-void list_init(t_list *list);
+void		add_command(t_list **lst, t_list *new);
+void add_command_u(t_list **list, t_list **tmp_list);
+void 		list_init(t_list *list);
+char 		**ft_realloc(char **p, char *str);
+void free_double(char **p);
+
+
+/*******lexer*******/
+void get_infile(t_list *list, char *val);
+void get_outfile(t_list *list, char *val, int type);
 # endif
 // echo 'dhfhygnfhgynf'
