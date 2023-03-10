@@ -6,7 +6,7 @@
 /*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 08:53:18 by aankote           #+#    #+#             */
-/*   Updated: 2023/03/10 20:35:59 by aankote          ###   ########.fr       */
+/*   Updated: 2023/03/10 20:40:49 by aankote          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void 		get_token(char *line, t_token **token);
 char		*get_value(char **env, char *var);
 void 		get_cmd(t_list **list, t_token **token);
 void		add_command(t_list **lst, t_list *new);
-void add_command_u(t_list **list, t_list **tmp_list);
 void 		list_init(t_list *list);
 char 		**ft_realloc(char **p, char *str);
 void free_double(char **p);

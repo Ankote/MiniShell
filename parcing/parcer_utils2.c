@@ -6,7 +6,7 @@
 /*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 19:52:16 by aankote           #+#    #+#             */
-/*   Updated: 2023/03/10 20:37:09 by aankote          ###   ########.fr       */
+/*   Updated: 2023/03/10 20:40:32 by aankote          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,4 @@ void get_outfile(t_list *list, char *val, int type)
          list->outfile = open(val, O_CREAT | O_RDWR, 0777);
     if(list->outfile == -1)
         perror(val);
-}
-
-void add_command_u(t_list **list, t_list **tmp_list)
-{
-    add_command(list, *tmp_list);
-    *tmp_list = malloc(sizeof(t_list));
-    list_init(*tmp_list);
 }
