@@ -6,24 +6,60 @@
 /*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 15:53:31 by aankote           #+#    #+#             */
-/*   Updated: 2023/03/09 12:57:36 by aankote          ###   ########.fr       */
+/*   Updated: 2023/03/11 20:09:58 by aankote          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 
-
+/*env[i][len] == '=' for handel if you put var like (US) th result will be "aankoteER=aankote"*/
 char *get_value(char **env, char *var)
 {
     int i;
 
     i = -1;
-    while(env[++i])
+    int len;
+    
+    len = ft_strlen(var);
+    while(env[++i] && var[0])
     {
-        if(!ft_strncmp(env[i], var, ft_strlen(var)))
-            return(env[i] + ft_strlen(var) + 1);
+        if(!ft_strncmp(env[i], var, len) && env[i][len + 1]
+            && env[i][len] == '=')
+            return(env[i] + len + 1);
     }
-    return(0);
+    return(ft_strdup(""));
 }
 
+char *ft_get_arg(char **env, char *str, int *i, int sta)
+{
+    char *p;
+    
+    p = ft_strdup("");
+    if(str[(*i)] == '?')
+    {
+        return(ft_strdup(ft_itoa(sta)));
+        (*i) ++;
+    }  
+    while(str[++(*i)] && ft_isalnum(str[*i]))
+        p = ft_charjoin(p, str[*i]);
+    (*i)--;
+    return(get_value(env, p));
+}
+
+char *ft_expand(char **env, char *str, int sta)
+{
+    int i;
+    char *p;
+
+    i = -1;
+    p = ft_strdup("");
+    while(str[++i])
+    {
+        if(str[i] == '$' && quotes(str, i) == 0)
+            p = ft_strjoin(p, ft_get_arg(env, str, (&i), sta)); 
+        else if(str[i] != '\'')
+            p = ft_charjoin(p, str[i]);
+    }
+    return (p);
+}

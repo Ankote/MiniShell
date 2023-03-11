@@ -6,11 +6,13 @@
 /*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 08:56:34 by aankote           #+#    #+#             */
-/*   Updated: 2023/03/10 18:31:42 by aankote          ###   ########.fr       */
+/*   Updated: 2023/03/11 20:59:17 by aankote          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+//Just for chick 
 
 void ft(int c)
 {
@@ -35,7 +37,7 @@ void ft(int c)
     if(c == LIMITER)
         printf("LIMITER ");
 }
-
+//for gake to  every token his type
 void tokens(char *line, t_token **token)
 {
     get_token(line, token);
@@ -50,7 +52,8 @@ void tokens(char *line, t_token **token)
     }
 }
 
-int main()
+// feel free to test what do  you want
+int main(int ac, char **av, char **env)
 {
     t_token *data;
     t_list *list;
@@ -58,10 +61,10 @@ int main()
   
     list = NULL;
     char *line;
-    
+    (void)ac;
+    (void)av;
     while (1)
     {
-       //list_init(list);
        line = readline("minishell~$");
         if (!check_single_quotes(line))
         {
@@ -73,21 +76,12 @@ int main()
         int i = 0;
         while (list)
         {
-            i = 0;
-            printf("command : ");
-            printf("%s\n", (list)->cmd);
-             printf("Args : ");
-            if((list)->args)
+            i = -1;
+            if(!ft_strcmp(list->cmd, "echo"))
             {
-                while((list)->args[i])
-                    printf("%s ", (list)->args[i++]);
-                printf("\n");
+                while(list->args && list->args[++i])
+                    printf("%s ",ft_expand(env, list->args[i], SUCCESS));
             }
-            else
-                printf("EMPTY\n");
-            printf("intfile :  %d\n", list->infile);
-            printf("outfile :  %d\n", list->outfile);
-            printf("\n**********************\n");
             (list) =(list)->next;
         }
             printf("\n");
@@ -96,42 +90,25 @@ int main()
             list = NULL;
             free(data);
     }
-    
-    // t_list *head = NULL;
-    // t_list *n1;
-    // t_list *n2;
-    // t_list *n3;
-    // t_list *n4;
-
-    // n1 = malloc(sizeof(t_list));
-    // n2 = malloc(sizeof(t_list));
-    // n3 = malloc(sizeof(t_list));
-    // n4 = malloc(sizeof(t_list));
-
-    // n1->cmd = "hello";
-    // n1->append_in = 0;
-    // n1->next = 0;
-
-    // n2->cmd = "hello";
-    // n2->append_in = 0;
-    // n2->next = 0;
-
-    // n3->cmd = "hello";
-    // n3->append_in = 0;
-    // n3->next = 0;
-
-    // n4->cmd = "hello";
-    // n4->append_in = 0;
-    // n4->next = 0;
-    
-    // add_command(&head, n1);
-    // add_command(&head, n2);
-    // add_command(&head, n3);
-    // add_command(&head, n4);
-    
-    // while(head)
-    // {
-    //     printf("%s\n", head->cmd);
-    //     head = head->next;
-    // }
 }
+
+// int main(int ac, char **av , char **env)
+// {
+//     (void)ac;
+//     (void)av;
+//     (void)env;
+//     char *p = ft_strdup("\"$USER\"");
+//    printf("%s\n",ft_expand(env, p));
+// // ft_expand(env, p);
+
+//     // char *p = ft_strdup("hello world");
+//     // char *s;
+//     // int i= 0;
+//     // s = ft_strdup("");
+//     // while(p[i])
+//     // {
+//     //     s = ft_charjoin(s, p[i]);
+//     //     i++;
+//     // }
+//     // printf("%s\n", s);
+// }

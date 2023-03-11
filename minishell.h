@@ -6,7 +6,7 @@
 /*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 08:53:18 by aankote           #+#    #+#             */
-/*   Updated: 2023/03/10 20:40:49 by aankote          ###   ########.fr       */
+/*   Updated: 2023/03/11 20:48:06 by aankote          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,14 @@
 # define HERDOC 10
 # define LIMITER 11
 
-// typedef struct mystruct
-// {
-// 	char *inpt;
-// 	char *outputa;
-// 	struct mystruct *next;
-// } t_my;
+/********exit status*******/
+
+# define ERROR 1
+# define SUCCESS 0
+# define IS_DIRECTORY 126
+# define UNKNOWN_COMMAND 127
+
+/************************/
 
 typedef struct	s_token
 {
@@ -60,24 +62,40 @@ typedef struct s_list
 void		ft_skip_spaces(char *str, int *i);
 void		ft_lstadd_back(t_token **lst, t_token *new);
 t_token		*ft_lstnew(int type, char *val);
-char		**ft_split_op(char const *s);
 int			check_operators(char c);
 int 		ft_handel_quotes(char *line);
-char		**ft_split_2(char const *s, char c);
 int 		check_single_quotes(char *str);
 char 		*fill_str(char *str);
 void	    type_arg(t_token *token);
 void 		get_token(char *line, t_token **token);
 char		*get_value(char **env, char *var);
 void 		get_cmd(t_list **list, t_token **token);
-void		add_command(t_list **lst, t_list *new);
+void		add_list(t_list **lst, t_list *new);
+void 		add_command(t_list **list, t_list **new);
 void 		list_init(t_list *list);
 char 		**ft_realloc(char **p, char *str);
 void free_double(char **p);
+int	ft_strcmp(const char *s1, const char *s2);
 
+/*******UTILS********/
+
+char *ft_charjoin(char *s, char c);
+char 	*ft_charjoin(char *s, char c);
 
 /*******lexer*******/
-void get_infile(t_list *list, char *val);
-void get_outfile(t_list *list, char *val, int type);
+
+void 	get_infile(t_list *list, char *val);
+void 	get_outfile(t_list *list, char *val, int type);
+int		quotes(char *line, int index);
+
+/**** expanding ********/
+
+char *ft_get_arg(char **env, char *str, int *i, int sta);
+char *ft_expand(char **env, char *str, int sta);
+
+/*************************/
+void ft_add_str(char *ln, t_token **token,char *p, int *i);
+void ft_add_opr(char *ln, t_token **token,char *p, int *i);
+int		ignore_sep(char c, char *line, int index);
 # endif
 // echo 'dhfhygnfhgynf'

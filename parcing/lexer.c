@@ -6,65 +6,49 @@
 /*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 10:50:47 by aankote           #+#    #+#             */
-/*   Updated: 2023/03/09 10:17:48 by aankote          ###   ########.fr       */
+/*   Updated: 2023/03/11 20:50:22 by aankote          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int		quotes(char *line, int index)
+void list_init(t_list *list)
 {
-	int	i;
-	int	open;
-
-	i = 0;
-	open = 0;
-	while (line[i] && i != index)
-	{	
-		if (open == 0 && line[i] == '\"')
-			open = 1;
-		else if (open == 1 && line[i] == '\"')
-			open = 0;
-		else if (open == 0 && line[i] == '\'')
-			open = 2;
-		else if (open == 2 && line[i] == '\'')
-			open = 0;
-		i++;
-	}
-	return (open);
+    list->args = NULL;
+    list->cmd = NULL;
+    list->infile = 0;
+    list->outfile = 1;
+    list->append_in = 1;
+    list->next = NULL;
 }
 
-char *ft_charjoin(char *s, char c)
+void get_cmd(t_list **list, t_token **token)
 {
-	char *p;
-	int i;
-	
-	i = 0;
-	p  = malloc(ft_strlen(s) + 2);
-	while(s[i])
-	{
-		p[i] = s[i];
-		i ++;
-	}	
-	p[i++] = c;
-	p[i] = 0;
-	return (p);
+    t_token *tmp;
+    t_list *tmp_list;
+
+    tmp = *token;
+   
+    tmp_list = (t_list *)malloc(sizeof(t_list));
+    list_init(tmp_list);
+    while (tmp)
+    {
+        type_arg(tmp);
+        if(tmp->type == CMD)
+            tmp_list->cmd = tmp->val;
+        else if(tmp->type == ARG)
+            tmp_list->args = ft_realloc( tmp_list->args, tmp->val);
+        else if(tmp->type == INFILE)
+            get_infile(tmp_list, tmp->val);
+        else if(tmp->type == OUTFILE)
+            get_outfile(tmp_list, tmp->val, OUTFILE);
+        else if(tmp->type == APPEND)
+            get_outfile(tmp_list, tmp->val, APPEND);
+        if ((tmp->next && tmp->next->type == PIPE) || !tmp->next)
+            add_command(list, &tmp_list);
+        tmp = tmp->next;
+    }
 }
-
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	size_t	i;
-
-	i = 0;
-	while (s1[i] == s2[i])
-	{
-		if (s1[i] == '\0' && s2[i] == '\0')
-			return (0);
-		i++;
-	}
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-}
-
 
 void	type_arg(t_token *token)
 {
@@ -116,36 +100,11 @@ void get_token(char *line, t_token **token)
     {
 		p = ft_calloc(1, 1);
 		if(line[i] && !ignore_sep(line[i], line, i))
-		{
-			while (line[i] && !ignore_sep(line[i], line, i))
-			{
-				while((line[i] == '\"' && (!quotes(line, i) || quotes(line, i) == 1))
-					|| ((line[i] == '\'' && (!quotes(line, i) || quotes(line, i) == 2))))
-					i++;
-				p = ft_charjoin(p, line[i]);
-				if((line[i + 1] && ignore_sep(line[i + 1], line, i)) || !line[i + 1] )
-				{
-					ft_lstadd_back(token, ft_lstnew(CMD, p));
-					break;
-				}
-				i ++;
-			}
-		}
+			ft_add_str(line, token,p, &i);
 		else
 		{
 			if(line[i] && ignore_sep(line[i], line, i))
-			{
-				while (line[i] && ignore_sep(line[i], line, i) && line[i] != ' ')
-				{
-					p = ft_charjoin(p, line[i]);
-					if((line[i + 1] && !ignore_sep(line[i + 1], line, i)) || !line[i + 1] || line[i+1] == ' ')
-					{
-						ft_lstadd_back(token, ft_lstnew(CMD, p));
-						break;
-					}
-					i ++;
-				}
-			}
+				ft_add_opr(line, token,p, &i);
 		}
     }
 }

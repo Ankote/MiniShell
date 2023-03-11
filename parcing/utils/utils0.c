@@ -1,18 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_00.c                                         :+:      :+:    :+:   */
+/*   utils1.c.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 08:51:50 by aankote           #+#    #+#             */
-/*   Updated: 2023/03/10 20:40:40 by aankote          ###   ########.fr       */
+/*   Updated: 2023/03/11 20:20:37 by aankote          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
-#include "minishell.h"
+#include "../../minishell.h"
 
 void ft_skip_white_spaces(char *str, int *i)
 {
@@ -68,7 +66,7 @@ t_token	*ft_lstnew(int type, char *val)
 	return (new);
 }              
 
-void	add_command(t_list **lst, t_list *new)
+void	add_list(t_list **lst, t_list *new)
 {
 	t_list	*temp;
     
