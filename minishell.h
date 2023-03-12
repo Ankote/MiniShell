@@ -6,7 +6,7 @@
 /*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 08:53:18 by aankote           #+#    #+#             */
-/*   Updated: 2023/03/11 20:48:06 by aankote          ###   ########.fr       */
+/*   Updated: 2023/03/12 17:41:36 by aankote          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int	ft_strcmp(const char *s1, const char *s2);
 
 char *ft_charjoin(char *s, char c);
 char 	*ft_charjoin(char *s, char c);
+char *ft_trim(char *arg);
 
 /*******lexer*******/
 

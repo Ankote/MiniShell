@@ -6,7 +6,7 @@
 /*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 19:52:16 by aankote           #+#    #+#             */
-/*   Updated: 2023/03/12 16:06:42 by aankote          ###   ########.fr       */
+/*   Updated: 2023/03/12 17:22:21 by aankote          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,24 +60,6 @@ void ft_add_opr(char *ln, t_token **token,char *p, int *i)
     {
         p = ft_charjoin(p, ln[*i]);
         if((ln[*i + 1] && !ignore_sep(ln[*i + 1], ln, *i)) || !ln[*i + 1] || ln[*i+1] == ' ')
-        {
-            ft_lstadd_back(token, ft_lstnew(CMD, p));
-            break;
-        }
-        (*i) ++;
-    }
-}
-
-void ft_echo_add_str(char *ln, t_token **token,char *p, int *i)
-{  
-    while (ln[*i] && !ignore_sep(ln[*i], ln, *i))
-    {
-        while((ln[*i] == '\"' && (!quotes(ln, *i) || quotes(ln, *i) == 1))
-            || ((ln[*i] == '\'' && (!quotes(ln, *i) || quotes(ln, *i) == 2))))
-            (*i)++;
-        p = ft_charjoin(p, ln[*i]);
-        if((ln[*i + 1] && ignore_sep(ln[*i + 1], ln, *i)) || !ln[*i + 1]
-          || (ln[*i + 1] == ' ' && (!quotes(ln, *i + 1))))
         {
             ft_lstadd_back(token, ft_lstnew(CMD, p));
             break;

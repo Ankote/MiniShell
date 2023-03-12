@@ -6,7 +6,7 @@
 /*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 10:50:47 by aankote           #+#    #+#             */
-/*   Updated: 2023/03/12 16:11:53 by aankote          ###   ########.fr       */
+/*   Updated: 2023/03/12 17:18:49 by aankote          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,9 @@ void get_token(char *line, t_token **token)
     {
 		p = ft_calloc(1, 1);
 		if(line[i] && !ignore_sep(line[i], line, i))
+		{
 			ft_add_str(line, token,p, &i);
+		}
 		else
 		{
 			if(line[i] && ignore_sep(line[i], line, i))
