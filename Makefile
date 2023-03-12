@@ -2,7 +2,7 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror 
 
 FILES = minishell.c  parcing/handle_quotes.c parcing/utils/utils0.c\
 		parcing/utils/utils1.c parcing/lexer.c parcing/expanding.c\
