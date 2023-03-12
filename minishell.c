@@ -6,7 +6,7 @@
 /*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 08:56:34 by aankote           #+#    #+#             */
-/*   Updated: 2023/03/12 20:26:37 by aankote          ###   ########.fr       */
+/*   Updated: 2023/03/12 20:45:33 by aankote          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,12 @@ int main(int ac, char **av, char **env)
             i = -1;
             if(!ft_strcmp(list->cmd, "echo"))
                 echo(env, list);
+            if(!ft_strcmp(list->cmd, "pwd"))
+            {
+                expaned_arg(env, "$PWD", SUCCESS);
+                printf("\n");
+            }
+                 
             (list) =(list)->next;
         }
             free (line);

@@ -39,8 +39,6 @@ re :fclean all
 
 run : re clean
 	@./minishell
-	
-
 push :
 	git add .
 	git commit -m "Updated"
