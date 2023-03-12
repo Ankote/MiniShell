@@ -6,7 +6,7 @@
 /*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 08:56:34 by aankote           #+#    #+#             */
-/*   Updated: 2023/03/11 20:59:17 by aankote          ###   ########.fr       */
+/*   Updated: 2023/03/12 16:45:20 by aankote          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,35 @@ void tokens(char *line, t_token **token)
     while (tmp)
     {
         type_arg(tmp);
-        // ft(tmp->type);
         tmp = tmp->next;
     }
+}
+
+void echo(char **env, t_list *list)
+{
+    int i;
+    int n;
+    char *p;
+    
+    i = -1;
+    n = 0;
+    if(!list->args)
+        return;
+    if(list->args[i + 1] && !ft_strcmp(list->args[i + 1], "-n"))
+    {
+        i++;
+        n = 1;
+    }
+    while(list->args[++i])
+    {
+        p = ft_expand(env, list->args[i], SUCCESS);
+        printf("%s", p);
+        free(p);
+        if (list->args[i + 1])
+            printf(" ");
+    }
+    if(!n)
+        printf("\n");
 }
 
 // feel free to test what do  you want
@@ -63,6 +89,7 @@ int main(int ac, char **av, char **env)
     char *line;
     (void)ac;
     (void)av;
+    // (void)env;
     while (1)
     {
        line = readline("minishell~$");
@@ -78,10 +105,7 @@ int main(int ac, char **av, char **env)
         {
             i = -1;
             if(!ft_strcmp(list->cmd, "echo"))
-            {
-                while(list->args && list->args[++i])
-                    printf("%s ",ft_expand(env, list->args[i], SUCCESS));
-            }
+                echo(env, list);
             (list) =(list)->next;
         }
             printf("\n");
