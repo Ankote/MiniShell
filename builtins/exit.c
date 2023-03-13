@@ -6,7 +6,7 @@
 /*   By: rakhsas <rakhsas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 23:24:00 by rakhsas           #+#    #+#             */
-/*   Updated: 2023/03/13 15:10:08 by rakhsas          ###   ########.fr       */
+/*   Updated: 2023/03/13 15:46:35 by rakhsas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,11 @@ int	ft_exit(t_list *data)
 {
 	long long	len;
 	len = count_args(data->args);
+	// printf("%s", data->args[0]);
 	if (!data->args[0])
 		(printf("exit\n"), exit(0));
 	is_numeric(data->args);
-	write(2, &len, 4);
+	// write(2, &len, 4);
 	if (len > 2)
 		write(2, "exit\nminishell: exit: too many arguments\n", 41);
 	else if (len == 2)
