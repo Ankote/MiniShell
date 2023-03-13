@@ -6,7 +6,7 @@
 /*   By: rakhsas <rakhsas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 08:53:18 by aankote           #+#    #+#             */
-/*   Updated: 2023/03/13 15:46:39 by rakhsas          ###   ########.fr       */
+/*   Updated: 2023/03/13 16:54:57 by rakhsas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,11 @@
 # define UNKNOWN_COMMAND 127
 
 /************************/
+typedef struct s_global
+{
+	int	exit_status;
+}	t_global;
+
 
 typedef struct	s_token
 {
@@ -56,6 +61,7 @@ typedef struct s_list
 	int 			infile;
 	int 			outfile;
 	int 			append_in;
+	t_global		*global;
 	struct s_list	*next;
 }	t_list;
 
