@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rakhsas <rakhsas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 08:53:18 by aankote           #+#    #+#             */
-/*   Updated: 2023/03/12 17:41:36 by aankote          ###   ########.fr       */
+/*   Updated: 2023/03/12 23:20:39 by rakhsas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,10 @@ int		quotes(char *line, int index);
 char *ft_get_arg(char **env, char *str, int *i, int sta);
 char *ft_expand(char **env, char *str, int sta);
 
+/*************************/
+/******* Builtins ********/
+void	echo(char **env, t_list *list);
+void	expaned_arg(char **env, char *arg, int s);
 /*************************/
 void ft_add_str(char *ln, t_token **token,char *p, int *i);
 void ft_add_opr(char *ln, t_token **token,char *p, int *i);
