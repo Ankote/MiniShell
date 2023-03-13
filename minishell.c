@@ -6,7 +6,7 @@
 /*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 08:56:34 by aankote           #+#    #+#             */
-/*   Updated: 2023/03/13 08:51:24 by aankote          ###   ########.fr       */
+/*   Updated: 2023/03/13 08:52:24 by aankote          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ int main(int ac, char **av, char **env)
     char *line;
     (void)ac;
     (void)av;
-    (void)env;
     while (1)
     {
        line = readline("\033[1;33mminishell~$ \033[0m");
