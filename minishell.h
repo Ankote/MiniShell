@@ -6,7 +6,7 @@
 /*   By: rakhsas <rakhsas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 08:53:18 by aankote           #+#    #+#             */
-/*   Updated: 2023/03/12 23:20:39 by rakhsas          ###   ########.fr       */
+/*   Updated: 2023/03/13 15:46:39 by rakhsas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ char *ft_expand(char **env, char *str, int sta);
 /******* Builtins ********/
 void	echo(char **env, t_list *list);
 void	expaned_arg(char **env, char *arg, int s);
+int	ft_exit(t_list *data);
 /*************************/
 void ft_add_str(char *ln, t_token **token,char *p, int *i);
 void ft_add_opr(char *ln, t_token **token,char *p, int *i);

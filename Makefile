@@ -1,12 +1,12 @@
 NAME = minishell
 
 CC = cc
-
+DIR = builtins
 CFLAGS = -Wall -Wextra -Werror
 
 FILES = minishell.c  parcing/handle_quotes.c parcing/utils/utils0.c\
 		parcing/utils/utils1.c parcing/lexer.c parcing/expanding.c\
-		parcing/utils/lexer_utils.c builtins/echo.c \
+		parcing/utils/lexer_utils.c $(DIR)/echo.c $(DIR)/exit.c\
 
 OBJCS = $(FILES:.c=.o)
 
