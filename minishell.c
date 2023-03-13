@@ -6,7 +6,7 @@
 /*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 08:56:34 by aankote           #+#    #+#             */
-/*   Updated: 2023/03/13 08:52:24 by aankote          ###   ########.fr       */
+/*   Updated: 2023/03/13 10:29:44 by aankote          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void tokens(char *line, t_token **token)
     while (tmp)
     {
         type_arg(tmp);
+        // ft(tmp->type);
+       //printf(".%s ", tmp->val);
         tmp = tmp->next;
     }
 }
@@ -91,7 +93,6 @@ void echo(char **env, t_list *list)
     free(targ);
 }
 
-
 // feel free to test what do  you want
 int main(int ac, char **av, char **env)
 {
@@ -103,9 +104,13 @@ int main(int ac, char **av, char **env)
     char *line;
     (void)ac;
     (void)av;
-    while (1)
+    (void)env;
+
+    int i = 0;
+    while (++i < 4)
     {
        line = readline("\033[1;33mminishell~$ \033[0m");
+        
         if (!check_single_quotes(line))
         {
             printf("Syntax Error!\n");
@@ -119,6 +124,8 @@ int main(int ac, char **av, char **env)
             i = -1;
             if(!ft_strcmp(list->cmd, "echo"))
                 echo(env, list);
+             if(!ft_strcmp(list->cmd, "exit"))
+                exit(0);
             if(!ft_strcmp(list->cmd, "pwd"))
             {
                 expaned_arg(env, "$PWD", SUCCESS);
