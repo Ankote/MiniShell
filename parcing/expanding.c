@@ -6,7 +6,7 @@
 /*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 15:53:31 by aankote           #+#    #+#             */
-/*   Updated: 2023/03/12 15:51:44 by aankote          ###   ########.fr       */
+/*   Updated: 2023/03/13 08:49:59 by aankote          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,15 @@ char *ft_get_arg(char **env, char *str, int *i, int sta)
     char *p;
     
     p = ft_strdup("");
-    if(str[(*i)] == '?')
+    if(str[(*i + 1)] == '?')
     {
-        return(ft_strdup(ft_itoa(sta)));
         (*i) ++;
+        return(ft_strdup(ft_itoa(sta)));
     }  
     while(str[++(*i)] && ft_isalnum(str[*i]))
-        p = ft_charjoin(p, str[*i]);
+    {
+         p = ft_charjoin(p, str[*i]);
+    }
     (*i)--;
     return(get_value(env, p));
 }

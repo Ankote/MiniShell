@@ -6,7 +6,7 @@
 /*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 08:56:34 by aankote           #+#    #+#             */
-/*   Updated: 2023/03/12 20:45:33 by aankote          ###   ########.fr       */
+/*   Updated: 2023/03/13 08:51:24 by aankote          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,10 @@ void echo(char **env, t_list *list)
     i = -1;
     n = 0;
     if(!list->args)
+    {
+        printf("\n");
         return;
+    }
     targ =ft_trim(list->args[i + 1]);
     if(list->args[i + 1] && ((!ft_strcmp(targ, "-n")) || (!ft_strcmp(targ, "-e"))))
     {
@@ -103,7 +106,7 @@ int main(int ac, char **av, char **env)
     (void)env;
     while (1)
     {
-       line = readline("minishell~$");
+       line = readline("\033[1;33mminishell~$ \033[0m");
         if (!check_single_quotes(line))
         {
             printf("Syntax Error!\n");
@@ -121,8 +124,7 @@ int main(int ac, char **av, char **env)
             {
                 expaned_arg(env, "$PWD", SUCCESS);
                 printf("\n");
-            }
-                 
+            }   
             (list) =(list)->next;
         }
             free (line);
