@@ -6,7 +6,7 @@
 /*   By: rakhsas <rakhsas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 08:56:34 by aankote           #+#    #+#             */
-/*   Updated: 2023/03/13 19:33:23 by rakhsas          ###   ########.fr       */
+/*   Updated: 2023/03/14 11:56:21 by rakhsas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,10 @@ void	ft_next(char *line, t_token *data, char **env, t_list *list)
 		}
 		else if (!ft_strcmp(list->cmd, "exit"))
 			ft_exit(list);
+		else if (!ft_strcmp(list->cmd, "unset"))
+			ft_unset(list);
+		else if (!ft_strcmp(list->cmd, "env"))
+			ft_env(env);
 		(list) = (list)->next;
 	}
 	free (line);
