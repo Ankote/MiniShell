@@ -6,7 +6,7 @@
 /*   By: rakhsas <rakhsas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 23:13:46 by rakhsas           #+#    #+#             */
-/*   Updated: 2023/03/12 23:14:17 by rakhsas          ###   ########.fr       */
+/*   Updated: 2023/03/14 10:18:24 by rakhsas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ void expaned_arg(char **env, char *arg, int s)
 	char *p;
 
 	p = ft_expand(env, arg, s);
-	printf("%s", p);
+	if (!p)
+		printf("Command Not Found\n");
+	else
+		printf("%s", p);
 	free(p);
 }
 
