@@ -17,7 +17,10 @@ void expaned_arg(char **env, char *arg, int s)
 	char *p;
 
 	p = ft_expand(env, arg, s);
-	printf("%s", p);
+	if (!p)
+		printf("Command Not Found\n");
+	else
+		printf("%s", p);
 	free(p);
 }
 

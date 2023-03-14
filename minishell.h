@@ -40,6 +40,11 @@
 # define UNKNOWN_COMMAND 127
 
 /************************/
+typedef struct s_global
+{
+	int	exit_status;
+}	t_global;
+
 
 typedef struct	s_token
 {
@@ -99,7 +104,9 @@ char *ft_expand(char **env, char *str, int sta);
 /******* Builtins ********/
 void	echo(char **env, t_list *list);
 void	expaned_arg(char **env, char *arg, int s);
-int	ft_exit(t_list *data);
+void	ft_unset(t_list *data);
+int		ft_exit(t_list *data);
+void	ft_env(char **env);
 /*************************/
 void ft_add_str(char *ln, t_token **token,char *p, int *i);
 void ft_add_opr(char *ln, t_token **token,char *p, int *i);

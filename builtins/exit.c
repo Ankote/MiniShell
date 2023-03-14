@@ -6,7 +6,7 @@
 /*   By: rakhsas <rakhsas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 23:24:00 by rakhsas           #+#    #+#             */
-/*   Updated: 2023/03/13 15:46:35 by rakhsas          ###   ########.fr       */
+/*   Updated: 2023/03/13 21:23:01 by rakhsas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,42 +24,39 @@ int	count_args(char **args)
 	return (i + 1);
 }
 
-void	is_numeric(char **args)
+void	is_numeric(t_list *data)
 {
 	int	i;
 	int	j;
 
 	i = 1;
 	j = 0;
-	while (args[i] != NULL)
+	data->global = malloc(sizeof(t_global));
+	while (data->args[0][j])
 	{
-		while (args[0][j])
+		if ((data->args[0][0] == '-' || data->args[0][0] == '+') && data->args[0][1] == '0'
+		&& !ft_atoi(&data->args[0][0]))
+			(printf("exit\n"), exit(0));
+		if (data->args[0][j] != '0' && !ft_atoi(&data->args[0][j]))
 		{
-			if ((args[0][0] == '-' || args[0][0] == '+') && args[0][1] == '0'
-			&& !ft_atoi(&args[0][1]))
-				(printf("exit\n"), exit(0));
-			if (args[0][j] != '0' && !ft_atoi(&args[0][j]))
-			{
-				write(2, "minishell: exit: ", 17);
-				write(2, args[0], ft_strlen(args[0]));
-				write(2, ": numeric argument required\n", 28);
-				exit(255);
-			}
-			j++;
+			write(2, "exit: ", 6);
+			write(2, data->args[0], ft_strlen(data->args[0]));
+			write(2, ": numeric argument required\n", 28);
+			data->global->exit_status = 255;
+			exit(data->global->exit_status);
 		}
-		i++;
+		j++;
 	}
 }
 
 int	ft_exit(t_list *data)
 {
 	long long	len;
+
 	len = count_args(data->args);
-	// printf("%s", data->args[0]);
 	if (!data->args[0])
 		(printf("exit\n"), exit(0));
-	is_numeric(data->args);
-	// write(2, &len, 4);
+	is_numeric(data);
 	if (len > 2)
 		write(2, "exit\nminishell: exit: too many arguments\n", 41);
 	else if (len == 2)
@@ -67,13 +64,13 @@ int	ft_exit(t_list *data)
 		len = ft_atoi(data->args[0]);
 		if (data->args[0][0] != '-' && len < 0)
 		{
-			write(2, "minishell: exit: ", 17);
+			write(2, "exit: ", 6);
 			write(2, data->args[0], ft_strlen(data->args[0]));
 			write(2, ": numeric argument required\n", 28);
-			exit(255);
+			exit(data->global->exit_status);
 		}
 		else
-			(printf("exit\n"), exit(ft_atoi(data->args[0])));
+			(printf("exit\n"), data->global->exit_status = ft_atoi(data->args[0]),  exit(data->global->exit_status));
 	}
 	return (1);
 }

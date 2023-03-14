@@ -88,9 +88,11 @@ void	ft_next(char *line, t_token *data, char **env, t_list *list)
 			printf("\n");
 		}
 		else if (!ft_strcmp(list->cmd, "exit"))
-		{
 			ft_exit(list);
-		}
+		else if (!ft_strcmp(list->cmd, "unset"))
+			ft_unset(list);
+		else if (!ft_strcmp(list->cmd, "env"))
+			ft_env(env);
 		(list) = (list)->next;
 	}
 	free (line);
