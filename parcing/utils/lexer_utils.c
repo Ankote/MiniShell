@@ -6,7 +6,7 @@
 /*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 19:52:16 by aankote           #+#    #+#             */
-/*   Updated: 2023/03/13 09:21:59 by aankote          ###   ########.fr       */
+/*   Updated: 2023/03/13 21:39:37 by aankote          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ void get_infile(t_list *list, char *val)
 {
     list->infile = open(val, O_RDONLY);
     if(list->infile == -1)
+     {
         perror(val);
+        list->perror = -1;
+    }
 }
 
 void get_outfile(t_list *list, char *val, int type)
@@ -26,7 +29,10 @@ void get_outfile(t_list *list, char *val, int type)
     else
          list->outfile = open(val, O_CREAT | O_RDWR, 0777);
     if(list->outfile == -1)
+    {
         perror(val);
+        list->perror = -1;
+    } 
 }
 
 void add_command(t_list **list, t_list **new)

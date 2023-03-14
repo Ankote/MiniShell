@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rakhsas <rakhsas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aankote <aankote@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 08:56:34 by aankote           #+#    #+#             */
-/*   Updated: 2023/03/13 15:46:16 by rakhsas          ###   ########.fr       */
+/*   Updated: 2023/03/13 20:43:28 by aankote          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,25 @@ void	tokens(char *line, t_token **token)
 	}
 }
 
+void expand_list(char **env, t_list **list, int sta)
+{
+	t_list *tmp;
+	int i;
+
+	i = -1;
+	tmp = *list;
+	while(tmp)
+	{
+		if(tmp->cmd)
+			tmp->cmd = ft_expand(env, tmp->cmd,sta);
+		if(tmp->args)
+		{
+			while(tmp->args[++i])
+				tmp->args[i] = ft_expand(env, tmp->args[i],sta);
+		}
+		tmp = tmp->next;
+	}
+}
 void	ft_next(char *line, t_token *data, char **env, t_list *list)
 {
 	int	i;
@@ -56,6 +75,7 @@ void	ft_next(char *line, t_token *data, char **env, t_list *list)
 	i = 0;
 	tokens(line, &data);
 	get_cmd(&list, &data);
+	expand_list(env, &list, 125);
 	while (list)
 	{
 		i = -1;
@@ -79,6 +99,7 @@ void	ft_next(char *line, t_token *data, char **env, t_list *list)
 	free (data);
 }
 
+
 int	main(int ac, char **av, char **env)
 {
 	t_token	*data;
@@ -94,7 +115,7 @@ int	main(int ac, char **av, char **env)
 	{
 		line = readline("minishell$ ");
 		if (!check_single_quotes(line))
-		{
+		{ 
 			printf("Syntax Error!\n");
 			continue ;
 		}
@@ -102,6 +123,65 @@ int	main(int ac, char **av, char **env)
 		ft_next(line, data, env, list);
 	}
 }
+
+// int main(int ac, char **av, char **env)
+// {
+// 	(void)ac;
+// 	(void)av;
+
+// 	t_token	*data;
+// 	t_list	*list;
+// 	char	*line;
+
+// 	data = malloc(sizeof(data));
+// 	list = NULL;
+// 	while (1)
+// 	{
+// 		line = readline("minishell$~ ");
+// 		if (!check_single_quotes(line))
+// 		{
+// 			printf("Syntax Error!\n");
+// 			continue ;
+// 		}
+// 		int	i;
+
+// 		i = 0;
+// 		tokens(line, &data);
+// 		get_cmd(&list, &data);
+// 		expand_list(env, &list, 1);
+// 		while (list)
+// 		{
+// 			// i = -1;
+// 			// str_tolower(list->cmd);
+// 			// if (!ft_strcmp(list->cmd, "echo"))
+// 			// 	echo(env, list);
+// 			// else if (!ft_strcmp(list->cmd, "pwd"))
+// 			// {
+// 			// 	expaned_arg(env, "$PWD", SUCCESS);
+// 			// 	printf("\n");
+// 			// }
+// 			// else if (!ft_strcmp(list->cmd, "exit"))
+// 			// {
+// 			// 	ft_exit(list);
+// 			// }
+// 			printf("%s ", list->cmd);
+// 			if(list->args)
+// 			{
+// 				while(list->args[i])
+// 					printf("%s ", list->args[i++]);
+// 			}
+// 			printf("\n");
+// 			(list) = (list)->next;
+// 		}
+// 		free (line);
+// 		free (list);
+// 		list = NULL;
+// 		// free (data);
+// 		// 	add_history(line);
+// 		//ft_next(line, data, env, list);
+// 	}
+	
+// }
 
 // int main()
 // {
