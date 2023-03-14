@@ -11,7 +11,7 @@ FILES = minishell.c  parcing/handle_quotes.c parcing/utils/utils0.c\
 
 OBJCS = $(FILES:.c=.o)
 
-INCLUDES = libft/libft.a
+INCLUDES = libft/libft.a -fsanitize=address
 
 all : $(NAME)
 	clear
